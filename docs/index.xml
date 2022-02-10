@@ -1,10 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>My New Hugo Site</title>
+    <title>LeeDongDong</title>
     <link>https://lisirrx.github.io/</link>
-    <description>Recent content on My New Hugo Site</description>
+    <description>Recent content on LeeDongDong</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-cn</language>
     <lastBuildDate>Fri, 11 Feb 2022 00:22:03 +0800</lastBuildDate>
     
         <atom:link href="https://lisirrx.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -12,12 +12,12 @@
     
     
         <item>
-        <title>My First Post</title>
+        <title>2022年开始了</title>
         <link>https://lisirrx.github.io/posts/my-first-post/</link>
         <pubDate>Fri, 11 Feb 2022 00:22:03 +0800</pubDate>
         
         <guid>https://lisirrx.github.io/posts/my-first-post/</guid>
-        <description>My New Hugo Site https://lisirrx.github.io/posts/my-first-post/ -- https://lisirrx.github.io/posts/my-first-post/ - </description>
+        <description>LeeDongDong https://lisirrx.github.io/posts/my-first-post/ -- https://lisirrx.github.io/posts/my-first-post/ - </description>
         </item>
     
     
