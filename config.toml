@@ -1,5 +1,5 @@
-baseURL = "https://lisirrx.github.io/"
+baseURL = "https://vecrocks.lisirrx.me/"
 languageCode = "zh-cn"
 title = "Han Li"
 theme = "hugo-theme-diary"
-publishDir = "./docs"
+publishDir = "docs"
