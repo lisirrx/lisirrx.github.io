@@ -21,7 +21,7 @@ Use same FreshVamana algorithm from [FreshDiskANN](/posts/fresh-diskann/)
 1. insert into mutable FreshVamana index memtable
 2. convert to immutable when reach the threshold.
 3. flush to L0 file, which is same structure as immutable index.
-4. compact L0 file, delete list to Ln(n >= 1) file.
+4. StreamingMerge L0 file, delete list to Ln(n >= 1) file.
 
 ### 2.2 Search
 
