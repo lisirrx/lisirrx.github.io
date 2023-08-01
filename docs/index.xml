@@ -1,26 +1,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Han Li</title>
-    <link>https://lisirrx.github.io/</link>
+    <link>https://vecrocks.lisirrx.me/</link>
     <description>Recent content on Han Li</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 01 Aug 2023 02:44:20 +0800</lastBuildDate>
     
-        <atom:link href="https://lisirrx.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://vecrocks.lisirrx.me/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>Vecrocks Design</title>
-        <link>https://lisirrx.github.io/posts/vectorcks-design/</link>
+        <link>https://vecrocks.lisirrx.me/posts/vectorcks-design/</link>
         <pubDate>Tue, 01 Aug 2023 02:44:20 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/vectorcks-design/</guid>
-        <description>Han Li https://lisirrx.github.io/posts/vectorcks-design/ -&lt;h2 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h2&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/vectorcks-design/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/vectorcks-design/ -&lt;h2 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image-5.png&#34; alt=&#34;Alt text&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;11-algorithm&#34;&gt;1.1 Algorithm&lt;/h2&gt;
-&lt;p&gt;Use same FreshVamana algorithm from &lt;a href=&#34;https://lisirrx.github.io/posts/fresh-diskann/&#34;&gt;FreshDiskANN&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Use same FreshVamana algorithm from &lt;a href=&#34;https://vecrocks.lisirrx.me/posts/fresh-diskann/&#34;&gt;FreshDiskANN&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2-operations&#34;&gt;2. Operations&lt;/h2&gt;
 &lt;h3 id=&#34;21-insert--delete-procedure&#34;&gt;2.1 Insert &amp;amp; Delete Procedure&lt;/h3&gt;
 &lt;ol&gt;
@@ -64,18 +64,18 @@ graph relation which can be &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;ui
 ...
 |id|vector|
 ...
-&lt;/code&gt;&lt;/pre&gt;- https://lisirrx.github.io/posts/vectorcks-design/ - </description>
+&lt;/code&gt;&lt;/pre&gt;- https://vecrocks.lisirrx.me/posts/vectorcks-design/ - </description>
         </item>
     
     
     
         <item>
         <title>ParlayANN</title>
-        <link>https://lisirrx.github.io/posts/parlayann/</link>
+        <link>https://vecrocks.lisirrx.me/posts/parlayann/</link>
         <pubDate>Mon, 31 Jul 2023 13:27:10 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/parlayann/</guid>
-        <description>Han Li https://lisirrx.github.io/posts/parlayann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2305.04359.pdf&#34;&gt;Scaling Graph-Based ANNS Algorithms to Billion-Size Datasets: A Comparative Analsyis&lt;/a&gt;&lt;/p&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/parlayann/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/parlayann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2305.04359.pdf&#34;&gt;Scaling Graph-Based ANNS Algorithms to Billion-Size Datasets: A Comparative Analsyis&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/cmuparlay/ParlayANN&#34;&gt;ParlayANN&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;ol&gt;
@@ -95,18 +95,18 @@ incremental ANNS graph algorithms lock-free.&lt;/li&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image-3.png&#34; alt=&#34;Insert&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image-4.png&#34; alt=&#34;Batch Build&#34;&gt;&lt;/p&gt;
-- https://lisirrx.github.io/posts/parlayann/ - </description>
+- https://vecrocks.lisirrx.me/posts/parlayann/ - </description>
         </item>
     
     
     
         <item>
         <title>Fresh Diskann</title>
-        <link>https://lisirrx.github.io/posts/fresh-diskann/</link>
+        <link>https://vecrocks.lisirrx.me/posts/fresh-diskann/</link>
         <pubDate>Sat, 29 Jul 2023 21:22:30 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/fresh-diskann/</guid>
-        <description>Han Li https://lisirrx.github.io/posts/fresh-diskann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2105.09613.pdf&#34;&gt;PDF&lt;/a&gt;&lt;/p&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/fresh-diskann/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/fresh-diskann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2105.09613.pdf&#34;&gt;PDF&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;FreshDiskANN分为几部分&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;FreshVamana构图算法&lt;/li&gt;
@@ -114,7 +114,7 @@ incremental ANNS graph algorithms lock-free.&lt;/li&gt;
 &lt;ol&gt;
 &lt;li&gt;Temporary Index(TempIndex)&lt;/li&gt;
 &lt;li&gt;RO- and RW-TempIndex&lt;/li&gt;
-&lt;li&gt;Long-Term Index (LTI) 数据结构基本和 &lt;a href=&#34;https://lisirrx.github.io/posts/existing-vectordb/#4-diskann&#34;&gt;diskann&lt;/a&gt; 一致&lt;/li&gt;
+&lt;li&gt;Long-Term Index (LTI) 数据结构基本和 &lt;a href=&#34;https://vecrocks.lisirrx.me/posts/existing-vectordb/#4-diskann&#34;&gt;diskann&lt;/a&gt; 一致&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;一种StreamingMerge模式
@@ -129,18 +129,18 @@ incremental ANNS graph algorithms lock-free.&lt;/li&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image.png&#34; alt=&#34;Insert&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image-1.png&#34; alt=&#34;Prune&#34;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../images/index/image-2.png&#34; alt=&#34;Delete&#34;&gt;&lt;/p&gt;
-- https://lisirrx.github.io/posts/fresh-diskann/ - </description>
+- https://vecrocks.lisirrx.me/posts/fresh-diskann/ - </description>
         </item>
     
     
     
         <item>
         <title>Inc Index</title>
-        <link>https://lisirrx.github.io/posts/inc-index/</link>
+        <link>https://vecrocks.lisirrx.me/posts/inc-index/</link>
         <pubDate>Fri, 28 Jul 2023 22:36:36 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/inc-index/</guid>
-        <description>Han Li https://lisirrx.github.io/posts/inc-index/ -&lt;blockquote&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/inc-index/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/inc-index/ -&lt;blockquote&gt;
 &lt;p&gt;构造索引是否能分摊为小的batch，分摊到每次compaction过程中？&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;1. 索引本身是否支持增量构造（或者合并）
@@ -210,18 +210,18 @@ hybird&lt;/p&gt;
 ...
 |src2_dst1|is_valid|
 ...
-&lt;/code&gt;&lt;/pre&gt;- https://lisirrx.github.io/posts/inc-index/ - </description>
+&lt;/code&gt;&lt;/pre&gt;- https://vecrocks.lisirrx.me/posts/inc-index/ - </description>
         </item>
     
     
     
         <item>
         <title>Existing Vectordb</title>
-        <link>https://lisirrx.github.io/posts/existing-vectordb/</link>
+        <link>https://vecrocks.lisirrx.me/posts/existing-vectordb/</link>
         <pubDate>Thu, 27 Jul 2023 03:55:38 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/existing-vectordb/</guid>
-        <description>Han Li https://lisirrx.github.io/posts/existing-vectordb/ -&lt;h2 id=&#34;0x00-interesting-fashion-vector-database-usage&#34;&gt;0x00 Interesting Fashion Vector Database Usage&lt;/h2&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/existing-vectordb/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/existing-vectordb/ -&lt;h2 id=&#34;0x00-interesting-fashion-vector-database-usage&#34;&gt;0x00 Interesting Fashion Vector Database Usage&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;[[voyager.pdf|Voyager]]:Use LLM in Minecraft that continuously explores the world&lt;/li&gt;
 &lt;/ol&gt;
@@ -495,7 +495,7 @@ SPTAG constructs space partition trees and a relative neighborhood graph as the 
 &lt;li&gt;PlainTable&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;0x03&#34;&gt;0x03&lt;/h2&gt;
-- https://lisirrx.github.io/posts/existing-vectordb/ - </description>
+- https://vecrocks.lisirrx.me/posts/existing-vectordb/ - </description>
         </item>
     
     
