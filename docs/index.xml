@@ -1,23 +1,501 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>LeeDongDong</title>
+    <title>Han Li</title>
     <link>https://lisirrx.github.io/</link>
-    <description>Recent content on LeeDongDong</description>
+    <description>Recent content on Han Li</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Feb 2022 00:22:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 01 Aug 2023 02:44:20 +0800</lastBuildDate>
     
         <atom:link href="https://lisirrx.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
-        <title>2022年开始了</title>
-        <link>https://lisirrx.github.io/posts/my-first-post/</link>
-        <pubDate>Fri, 11 Feb 2022 00:22:03 +0800</pubDate>
+        <title>Vecrocks Design</title>
+        <link>https://lisirrx.github.io/posts/vectorcks-design/</link>
+        <pubDate>Tue, 01 Aug 2023 02:44:20 +0800</pubDate>
         
-        <guid>https://lisirrx.github.io/posts/my-first-post/</guid>
-        <description>LeeDongDong https://lisirrx.github.io/posts/my-first-post/ -- https://lisirrx.github.io/posts/my-first-post/ - </description>
+        <guid>https://lisirrx.github.io/posts/vectorcks-design/</guid>
+        <description>Han Li https://lisirrx.github.io/posts/vectorcks-design/ -&lt;h2 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image-5.png&#34; alt=&#34;Alt text&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;11-algorithm&#34;&gt;1.1 Algorithm&lt;/h2&gt;
+&lt;p&gt;Use same FreshVamana algorithm from &lt;a href=&#34;https://lisirrx.github.io/posts/fresh-diskann/&#34;&gt;FreshDiskANN&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2-operations&#34;&gt;2. Operations&lt;/h2&gt;
+&lt;h3 id=&#34;21-insert--delete-procedure&#34;&gt;2.1 Insert &amp;amp; Delete Procedure&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;insert into mutable FreshVamana index memtable&lt;/li&gt;
+&lt;li&gt;convert to immutable when reach the threshold.&lt;/li&gt;
+&lt;li&gt;flush to L0 file, which is same structure as immutable index.&lt;/li&gt;
+&lt;li&gt;StreamingMerge L0 file, delete list to Ln(n &amp;gt;= 1) file.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;22-search&#34;&gt;2.2 Search&lt;/h3&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;consturct a KNN search queue&lt;/li&gt;
+&lt;li&gt;search from memtable&lt;/li&gt;
+&lt;li&gt;load l0 to disk and search&lt;/li&gt;
+&lt;li&gt;search from all sst file using graph based search&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;3-data-structure&#34;&gt;3. Data Structure&lt;/h2&gt;
+&lt;h3 id=&#34;31-in-memory&#34;&gt;3.1 In Memory&lt;/h3&gt;
+&lt;p&gt;raw data:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|id|vector|
+|id|vector|
+|id|vector|
+...
+|id|vector|
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;index:
+graph relation which can be &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;uint32_t&amp;gt;&amp;gt; _final_graph;&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;311-raw-data--index&#34;&gt;3.1.1 raw data &amp;amp; index&lt;/h4&gt;
+&lt;h4 id=&#34;312-deletelistfilter&#34;&gt;3.1.2 DeleteListFilter&lt;/h4&gt;
+&lt;h3 id=&#34;32-on-disk&#34;&gt;3.2 On Disk&lt;/h3&gt;
+&lt;p&gt;index:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|src1_dst1|is_valid/id info|
+|src1_dst2|is_valid/id info|
+|src1_dst3|is_valid/id info|
+...
+|src2_dst1|is_valid/id info|
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;raw data:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|id|vector|
+|id|vector|
+|id|vector|
+...
+|id|vector|
+...
+&lt;/code&gt;&lt;/pre&gt;- https://lisirrx.github.io/posts/vectorcks-design/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>ParlayANN</title>
+        <link>https://lisirrx.github.io/posts/parlayann/</link>
+        <pubDate>Mon, 31 Jul 2023 13:27:10 +0800</pubDate>
+        
+        <guid>https://lisirrx.github.io/posts/parlayann/</guid>
+        <description>Han Li https://lisirrx.github.io/posts/parlayann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2305.04359.pdf&#34;&gt;Scaling Graph-Based ANNS Algorithms to Billion-Size Datasets: A Comparative Analsyis&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/cmuparlay/ParlayANN&#34;&gt;ParlayANN&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;In this paper, we propose a set of principled measures for evaluating ANNS algorithms which refocuses on their scalability to
+billion-size datasets. These measures include ability to be efficiently
+parallelized, build times, and scaling relationships as dataset size increases.&lt;/li&gt;
+&lt;li&gt;We also expand on the QPS measure with machine-agnostic
+measures such as the number of distance computations per query,
+and we evaluate ANNS data structures on their accuracy in more
+demanding settings required in modern applications, such as eval-
+uating range queries and running on out-of-distribution data.&lt;/li&gt;
+&lt;li&gt;We
+optimize four graph-based algorithms for the billion-scale setting,
+and in the process provide a general framework for making many
+incremental ANNS graph algorithms lock-free.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image-3.png&#34; alt=&#34;Insert&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image-4.png&#34; alt=&#34;Batch Build&#34;&gt;&lt;/p&gt;
+- https://lisirrx.github.io/posts/parlayann/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Fresh Diskann</title>
+        <link>https://lisirrx.github.io/posts/fresh-diskann/</link>
+        <pubDate>Sat, 29 Jul 2023 21:22:30 +0800</pubDate>
+        
+        <guid>https://lisirrx.github.io/posts/fresh-diskann/</guid>
+        <description>Han Li https://lisirrx.github.io/posts/fresh-diskann/ -&lt;p&gt;&lt;a href=&#34;https://arxiv.org/pdf/2105.09613.pdf&#34;&gt;PDF&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;FreshDiskANN分为几部分&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;FreshVamana构图算法&lt;/li&gt;
+&lt;li&gt;索引文件结构和内存数据结构
+&lt;ol&gt;
+&lt;li&gt;Temporary Index(TempIndex)&lt;/li&gt;
+&lt;li&gt;RO- and RW-TempIndex&lt;/li&gt;
+&lt;li&gt;Long-Term Index (LTI) 数据结构基本和 &lt;a href=&#34;https://lisirrx.github.io/posts/existing-vectordb/#4-diskann&#34;&gt;diskann&lt;/a&gt; 一致&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;一种StreamingMerge模式
+&lt;ol&gt;
+&lt;li&gt;Delete Phase(block by block process delete list point)&lt;/li&gt;
+&lt;li&gt;Insert Phase(do graph insert block by block, but defer backward edge to Patch Phase)&lt;/li&gt;
+&lt;li&gt;Patch Phase(patch backward edge)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Crash Recovery, 写入时写redo-log&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image.png&#34; alt=&#34;Insert&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image-1.png&#34; alt=&#34;Prune&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;../images/index/image-2.png&#34; alt=&#34;Delete&#34;&gt;&lt;/p&gt;
+- https://lisirrx.github.io/posts/fresh-diskann/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Inc Index</title>
+        <link>https://lisirrx.github.io/posts/inc-index/</link>
+        <pubDate>Fri, 28 Jul 2023 22:36:36 +0800</pubDate>
+        
+        <guid>https://lisirrx.github.io/posts/inc-index/</guid>
+        <description>Han Li https://lisirrx.github.io/posts/inc-index/ -&lt;blockquote&gt;
+&lt;p&gt;构造索引是否能分摊为小的batch，分摊到每次compaction过程中？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;1. 索引本身是否支持增量构造（或者合并）
+2. rebuild index是否能只影响一部分数据-&amp;gt;不接受rebuild全量数据
+3. 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;ivf&#34;&gt;IVF&lt;/h3&gt;
+&lt;p&gt;FAISS IVF Merge 可以合并多个Index
+但是前提：centroid一致&lt;/p&gt;
+&lt;p&gt;传统KMeans&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;随机选择 k 个点作为初始聚类中心。&lt;/li&gt;
+&lt;li&gt;将所有点分配到最近的聚类中心。&lt;/li&gt;
+&lt;li&gt;对于每个聚类，计算其质心。&lt;/li&gt;
+&lt;li&gt;将每个聚类的质心作为新的聚类中心。&lt;/li&gt;
+&lt;li&gt;重复步骤 2-4，直到聚类中心不再发生变化或达到预定的迭代次数&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Continuous k-Means&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;随机选择 k 个点作为初始聚类中心。&lt;/li&gt;
+&lt;li&gt;将所有数据点分配到最近的聚类中心。&lt;/li&gt;
+&lt;li&gt;对于每个聚类，计算其质心。&lt;/li&gt;
+&lt;li&gt;随机选择一小部分数据点，计算它们到所有聚类中心的距离&lt;/li&gt;
+&lt;li&gt;如果某个数据点到另一个聚类中心更近，则将其从当前聚类中心中删除，并将其分配到更近的聚类中心。&lt;/li&gt;
+&lt;li&gt;重复步骤 3-5，直到聚类中心不再发生变化或达到预定的迭代次数。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;结论：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果不重新生成，那么增加只需要插入/更新centroid的ivflist&lt;/li&gt;
+&lt;li&gt;如果需要重新生成，几乎要修改所有ivflist&lt;/li&gt;
+&lt;li&gt;从零开始插入数据，分布一定是不均的-&amp;gt;一定要重新聚类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;graphbasedhnsw&#34;&gt;GraphBased(HNSW)&lt;/h2&gt;
+&lt;p&gt;![[HNSW_Insert_.png]]&lt;/p&gt;
+&lt;p&gt;结论：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;基于图构造的过程就是天然渐进式的过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以把构造边的过程转化为KV增删的语义&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;每次写入新节点都要有一次查询&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;把建边流程后推到flush过程中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;DiskANN Graph Merge&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Design: insert into memtable /search&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HNSW insert in Flush&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;L0 buffer? Compaction&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;baseline
+hybird&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|src1_dst1|is_valid|
+|src1_dst2|is_valid|
+|src1_dst3|is_valid|
+...
+|src2_dst1|is_valid|
+...
+&lt;/code&gt;&lt;/pre&gt;- https://lisirrx.github.io/posts/inc-index/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Existing Vectordb</title>
+        <link>https://lisirrx.github.io/posts/existing-vectordb/</link>
+        <pubDate>Thu, 27 Jul 2023 03:55:38 +0800</pubDate>
+        
+        <guid>https://lisirrx.github.io/posts/existing-vectordb/</guid>
+        <description>Han Li https://lisirrx.github.io/posts/existing-vectordb/ -&lt;h2 id=&#34;0x00-interesting-fashion-vector-database-usage&#34;&gt;0x00 Interesting Fashion Vector Database Usage&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;[[voyager.pdf|Voyager]]:Use LLM in Minecraft that continuously explores the world&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;voyager_1png&#34;&gt;&lt;img src=&#34;voyager_1.png&#34; alt=&#34;&#34;&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;voyager_2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;img src=&#34;https://python.langchain.com/&#34; alt=&#34;LangChain&#34;&gt;
+&lt;img src=&#34;langchain_steps.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;p&gt;e.g. &lt;a href=&#34;https://github.com/akshata29/chatpdf&#34;&gt;https://github.com/akshata29/chatpdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;chatpdf.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Use Cases
+&lt;ol&gt;
+&lt;li&gt;Agents/Agent Simulation&lt;/li&gt;
+&lt;li&gt;Chat Bots&lt;/li&gt;
+&lt;li&gt;Code Understanding&lt;/li&gt;
+&lt;li&gt;QA over Documents&lt;/li&gt;
+&lt;li&gt;Summarization&lt;/li&gt;
+&lt;li&gt;Analyzing Structured Data&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0x01-different-databases-vector-index&#34;&gt;0x01: Different Databases&amp;rsquo; Vector Index&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Postgresql: &lt;img src=&#34;https://github.com/alipay/PASE&#34; alt=&#34;PASE&#34;&gt;&lt;/li&gt;
+&lt;li&gt;Apache Lucene(Mongo?/ElasticSearch)&lt;/li&gt;
+&lt;li&gt;Milvus: &lt;a href=&#34;https://github.com/milvus-io/milvus&#34;&gt;https://github.com/milvus-io/milvus&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DiskANN: &lt;a href=&#34;https://github.com/microsoft/DiskANN&#34;&gt;https://github.com/microsoft/DiskANN&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;SPANN: &lt;a href=&#34;https://github.com/microsoft/SPTAG&#34;&gt;https://github.com/microsoft/SPTAG&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;1-postgresql-index-structure&#34;&gt;1. Postgresql Index Structure&lt;/h2&gt;
+&lt;p&gt;Every table/index of PG is stored as an array of pages with a fixed size&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;pg_page.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;pg_index_structure.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;11-pase-ivf_flat&#34;&gt;1.1 PASE: IVF_FLAT&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A centroid page is employed to store cluster information.&lt;/li&gt;
+&lt;li&gt;A data page is similar to an inverted chain in a search engine that stores all vectors belonging to a certain cluster.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;pg_vector_ivfflat_index.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;12-pasehnsw&#34;&gt;1.2 PASE:HNSW&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;A data page is used to store raw vector data.&lt;/li&gt;
+&lt;li&gt;A neighbor page is employed to store edges between&lt;br&gt;
+adjacent nodes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;pg_vector_hnaw_index.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;2-apache-lucene&#34;&gt;2. Apache Lucene&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;lucene_index.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Read OffHeapHNSWGraph( by .e.g mmap) from File and search on it&lt;/p&gt;
+&lt;h2 id=&#34;index-files&#34;&gt;Index Files&lt;/h2&gt;
+&lt;p&gt;Lucene 9.5 vector format, which encodes numeric vector values and an optional associated graph connecting the documents having values. The graph is used to power HNSW search. The format consists of three files:&lt;/p&gt;
+&lt;h3 id=&#34;vec-vector-data-file&#34;&gt;.vec (vector data) file&lt;/h3&gt;
+&lt;p&gt;For each field:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vector data ordered by field, document ordinal, and vector dimension. When the vectorEncoding is BYTE, each sample is stored as a single byte. When it is FLOAT32, each sample is stored as an IEEE float in little-endian byte order.&lt;/li&gt;
+&lt;li&gt;DocIds encoded by IndexedDISI.writeBitSet(DocIdSetIterator, IndexOutput, byte), note that only in sparse case&lt;/li&gt;
+&lt;li&gt;OrdToDoc was encoded by org.apache.lucene.util.packed.DirectMonotonicWriter, note that only in sparse case&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;vex-vector-index&#34;&gt;.vex (vector index)&lt;/h3&gt;
+&lt;p&gt;Stores graphs connecting the documents for each field organized as a list of nodes&amp;rsquo; neighbours as following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;For each level:
+&lt;ul&gt;
+&lt;li&gt;For each node:
+&lt;ul&gt;
+&lt;li&gt;[vint] the number of neighbor nodes&lt;/li&gt;
+&lt;li&gt;array[vint] the delta encoded neighbor ordinals&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;After all levels are encoded memory offsets for each node&amp;rsquo;s neighbor nodes encoded by org.apache.lucene.util.packed.DirectMonotonicWriter are appened to the end of the file.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;vem-vector-metadata-file&#34;&gt;.vem (vector metadata) file&lt;/h3&gt;
+&lt;p&gt;For each field:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[int32] field number&lt;/li&gt;
+&lt;li&gt;[int32] vector similarity function ordinal&lt;/li&gt;
+&lt;li&gt;[vlong] offset to this field&amp;rsquo;s vectors in the .vec file&lt;/li&gt;
+&lt;li&gt;[vlong] length of this field&amp;rsquo;s vectors, in bytes&lt;/li&gt;
+&lt;li&gt;[vlong] offset to this field&amp;rsquo;s index in the .vex file&lt;/li&gt;
+&lt;li&gt;[vlong] length of this field&amp;rsquo;s index data, in bytes&lt;/li&gt;
+&lt;li&gt;[vint] dimension of this field&amp;rsquo;s vectors&lt;/li&gt;
+&lt;li&gt;[int] the number of documents having values for this field&lt;/li&gt;
+&lt;li&gt;[int8] if equals to -1, dense – all documents have values for a field. If equals to 0, sparse – some documents missing values.&lt;/li&gt;
+&lt;li&gt;DocIds were encoded by IndexedDISI.writeBitSet(DocIdSetIterator, IndexOutput, byte)&lt;/li&gt;
+&lt;li&gt;OrdToDoc was encoded by org.apache.lucene.util.packed.DirectMonotonicWriter, note that only in sparse case&lt;/li&gt;
+&lt;li&gt;[vint] the maximum number of connections (neigbours) that each node can have&lt;/li&gt;
+&lt;li&gt;[vint] number of levels in the graph&lt;/li&gt;
+&lt;li&gt;Graph nodes by level. For each level
+&lt;ul&gt;
+&lt;li&gt;[vint] the number of nodes on this level&lt;/li&gt;
+&lt;li&gt;array[vint] for levels greater than 0 list of nodes on this level, stored as the level 0th delta encoded nodes&amp;rsquo; ordinals.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;add-doc&#34;&gt;Add Doc&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;add vector field and build in-memory graph&lt;/li&gt;
+&lt;li&gt;flush to file when commit&lt;/li&gt;
+&lt;li&gt;merge graph when merge segment ^9a98a9&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;3-milvus&#34;&gt;3. Milvus&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;milvus_arch.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Each segment has multiple versions and a new
+version is generated whenever the data or index in that segment is changed (e.g., upon flushing, merging, or building index)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Milvus supports efficient insertions and deletions by adopting theidea of LSM-tree [47]. Newly inserted entities are stored in memoryfirst as MemTable. Once the accumulated size reaches a threshold,or once every second, the MemTable becomes immutable and thengets flushed to disk as a new segment==&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;4-diskann&#34;&gt;4. DiskANN&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;Diskann_index.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;DiskANN Contains 2 part&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Vamana Index Algorithm&lt;/li&gt;
+&lt;li&gt;Disk Index Layout&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;5-spannsptag&#34;&gt;5. SPANN/SPTAG&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;spann_index.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;SPANN/SPTAG focus on the in-memory index building, for searching in very large dataset.
+SPTAG constructs space partition trees and a relative neighborhood graph as the vector index which can speedup the nearest centroids search to sub-millisecond response time&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;0x02-possible-design-in-kv-store&#34;&gt;0x02: possible design in kv-store&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Store IVF/Neighbor Graph index in Rocksdb&lt;/li&gt;
+&lt;li&gt;Implement Rocksdb Memtable using a vector index format?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For 1:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Random Access a position in file(lucene/DiskANN/SPANN)&lt;/li&gt;
+&lt;li&gt;Access blocks from one to another(pg)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Use Prefix for item aggregation&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;1-one-possible-design-of-ivf&#34;&gt;1. One possible design of IVF&lt;/h3&gt;
+&lt;p&gt;Suppose we have a vector encoding method&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Use multiple pair to store an IVF list of a centroid vector&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;key&lt;/th&gt;
+&lt;th&gt;value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_0&lt;/td&gt;
+&lt;td&gt;[[1.0,1.1],[1.0,1.2]&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_1&lt;/td&gt;
+&lt;td&gt;[[1.1,1.1],[1.1,1.2]&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_2&lt;/td&gt;
+&lt;td&gt;[[1.2,1.1],[1.2,1.2]&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_0&lt;/td&gt;
+&lt;td&gt;[[1.0,2.1],[1.0,2.2]&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_1&lt;/td&gt;
+&lt;td&gt;[[1.1,2.1],[1.1,2.2]&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;p&gt;or&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;key&lt;/th&gt;
+&lt;th&gt;value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_0&lt;/td&gt;
+&lt;td&gt;[1.0,1.1]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_1&lt;/td&gt;
+&lt;td&gt;[1.0,1.2]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_2&lt;/td&gt;
+&lt;td&gt;[1.1,1.1]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_3&lt;/td&gt;
+&lt;td&gt;[1.1,1.2]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_4&lt;/td&gt;
+&lt;td&gt;[1.2,1.1]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,1.5]_5&lt;/td&gt;
+&lt;td&gt;[1.2,1.2]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_0&lt;/td&gt;
+&lt;td&gt;[1.0,2.1]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_1&lt;/td&gt;
+&lt;td&gt;[1.0,2.2]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_2&lt;/td&gt;
+&lt;td&gt;[1.1,2.1]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_centroid_[1.0,2.5]_3&lt;/td&gt;
+&lt;td&gt;[1.1,2.2]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;2-one-possible-design-of-hnsw&#34;&gt;2. One possible design of HNSW&lt;/h3&gt;
+&lt;p&gt;Use KV to represent graph&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;key&lt;/th&gt;
+&lt;th&gt;value(distance, neighbor vec)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;t_vec_lv0_[1.0,1.5]&lt;/td&gt;
+&lt;td&gt;[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_vec_lv0_[1.1,3.5]&lt;/td&gt;
+&lt;td&gt;[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;hellip;&lt;/td&gt;
+&lt;td&gt;&amp;hellip;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t_vec_lv1_[1.2,4.5]&lt;/td&gt;
+&lt;td&gt;[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&amp;hellip;]&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;or expand to multiple lines like IVF&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;For 2: ?&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;索引重建&lt;/li&gt;
+&lt;li&gt;SST 合并、SST Builder&lt;/li&gt;
+&lt;li&gt;merge operator&lt;/li&gt;
+&lt;li&gt;向量索引的内存部分不是memtable 而是SST Meta 信息 super index&lt;/li&gt;
+&lt;li&gt;memtable可以就是部分数据，比如构建一个小的索引&lt;/li&gt;
+&lt;li&gt;PlainTable&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;0x03&#34;&gt;0x03&lt;/h2&gt;
+- https://lisirrx.github.io/posts/existing-vectordb/ - </description>
         </item>
     
     

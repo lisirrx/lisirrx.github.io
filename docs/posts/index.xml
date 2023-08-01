@@ -1,23 +1,77 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on LeeDongDong</title>
+    <title>Posts on Han Li</title>
     <link>https://lisirrx.github.io/posts/</link>
-    <description>Recent content in Posts on LeeDongDong</description>
+    <description>Recent content in Posts on Han Li</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Feb 2022 00:22:03 +0800</lastBuildDate>
-    
-	<atom:link href="https://lisirrx.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 01 Aug 2023 02:44:20 +0800</lastBuildDate><atom:link href="https://lisirrx.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vecrocks Design</title>
+      <link>https://lisirrx.github.io/posts/vectorcks-design/</link>
+      <pubDate>Tue, 01 Aug 2023 02:44:20 +0800</pubDate>
+      
+      <guid>https://lisirrx.github.io/posts/vectorcks-design/</guid>
+      <description>1. Overview 1.1 Algorithm Use same FreshVamana algorithm from FreshDiskANN
+2. Operations 2.1 Insert &amp;amp; Delete Procedure insert into mutable FreshVamana index memtable convert to immutable when reach the threshold. flush to L0 file, which is same structure as immutable index. StreamingMerge L0 file, delete list to Ln(n &amp;gt;= 1) file. 2.2 Search consturct a KNN search queue search from memtable load l0 to disk and search search from all sst file using graph based search 3.</description>
+    </item>
     
     <item>
-      <title>2022年开始了</title>
-      <link>https://lisirrx.github.io/posts/my-first-post/</link>
-      <pubDate>Fri, 11 Feb 2022 00:22:03 +0800</pubDate>
+      <title>ParlayANN</title>
+      <link>https://lisirrx.github.io/posts/parlayann/</link>
+      <pubDate>Mon, 31 Jul 2023 13:27:10 +0800</pubDate>
       
-      <guid>https://lisirrx.github.io/posts/my-first-post/</guid>
-      <description></description>
+      <guid>https://lisirrx.github.io/posts/parlayann/</guid>
+      <description>Scaling Graph-Based ANNS Algorithms to Billion-Size Datasets: A Comparative Analsyis
+ParlayANN
+In this paper, we propose a set of principled measures for evaluating ANNS algorithms which refocuses on their scalability to billion-size datasets. These measures include ability to be efficiently parallelized, build times, and scaling relationships as dataset size increases. We also expand on the QPS measure with machine-agnostic measures such as the number of distance computations per query, and we evaluate ANNS data structures on their accuracy in more demanding settings required in modern applications, such as eval- uating range queries and running on out-of-distribution data.</description>
+    </item>
+    
+    <item>
+      <title>Fresh Diskann</title>
+      <link>https://lisirrx.github.io/posts/fresh-diskann/</link>
+      <pubDate>Sat, 29 Jul 2023 21:22:30 +0800</pubDate>
+      
+      <guid>https://lisirrx.github.io/posts/fresh-diskann/</guid>
+      <description>PDF
+FreshDiskANN分为几部分
+FreshVamana构图算法 索引文件结构和内存数据结构 Temporary Index(TempIndex) RO- and RW-TempIndex Long-Term Index (LTI) 数据结构基本和 diskann 一致 一种StreamingMerge模式 Delete Phase(block by block process delete list point) Insert Phase(do graph insert block by block, but defer backward edge to Patch Phase) Patch Phase(patch backward edge) Crash Recovery, 写入时写redo-log </description>
+    </item>
+    
+    <item>
+      <title>Inc Index</title>
+      <link>https://lisirrx.github.io/posts/inc-index/</link>
+      <pubDate>Fri, 28 Jul 2023 22:36:36 +0800</pubDate>
+      
+      <guid>https://lisirrx.github.io/posts/inc-index/</guid>
+      <description> 构造索引是否能分摊为小的batch，分摊到每次compaction过程中？
+1. 索引本身是否支持增量构造（或者合并） 2. rebuild index是否能只影响一部分数据-&amp;gt;不接受rebuild全量数据 3. IVF FAISS IVF Merge 可以合并多个Index 但是前提：centroid一致
+传统KMeans
+随机选择 k 个点作为初始聚类中心。 将所有点分配到最近的聚类中心。 对于每个聚类，计算其质心。 将每个聚类的质心作为新的聚类中心。 重复步骤 2-4，直到聚类中心不再发生变化或达到预定的迭代次数 Continuous k-Means
+随机选择 k 个点作为初始聚类中心。 将所有数据点分配到最近的聚类中心。 对于每个聚类，计算其质心。 随机选择一小部分数据点，计算它们到所有聚类中心的距离 如果某个数据点到另一个聚类中心更近，则将其从当前聚类中心中删除，并将其分配到更近的聚类中心。 重复步骤 3-5，直到聚类中心不再发生变化或达到预定的迭代次数。 结论：
+如果不重新生成，那么增加只需要插入/更新centroid的ivflist 如果需要重新生成，几乎要修改所有ivflist 从零开始插入数据，分布一定是不均的-&amp;gt;一定要重新聚类 GraphBased(HNSW) ![[HNSW_Insert_.png]]
+结论：
+基于图构造的过程就是天然渐进式的过程
+可以把构造边的过程转化为KV增删的语义
+每次写入新节点都要有一次查询
+把建边流程后推到flush过程中 DiskANN Graph Merge
+Design: insert into memtable /search
+HNSW insert in Flush
+L0 buffer? Compaction
+baseline hybird
+|src1_dst1|is_valid| |src1_dst2|is_valid| |src1_dst3|is_valid| ... |src2_dst1|is_valid| ... </description>
+    </item>
+    
+    <item>
+      <title>Existing Vectordb</title>
+      <link>https://lisirrx.github.io/posts/existing-vectordb/</link>
+      <pubDate>Thu, 27 Jul 2023 03:55:38 +0800</pubDate>
+      
+      <guid>https://lisirrx.github.io/posts/existing-vectordb/</guid>
+      <description>0x00 Interesting Fashion Vector Database Usage [[voyager.pdf|Voyager]]:Use LLM in Minecraft that continuously explores the world e.g. https://github.com/akshata29/chatpdf
+Use Cases Agents/Agent Simulation Chat Bots Code Understanding QA over Documents Summarization Analyzing Structured Data 0x01: Different Databases&amp;rsquo; Vector Index Postgresql: Apache Lucene(Mongo?/ElasticSearch) Milvus: https://github.com/milvus-io/milvus DiskANN: https://github.com/microsoft/DiskANN SPANN: https://github.com/microsoft/SPTAG 1. Postgresql Index Structure Every table/index of PG is stored as an array of pages with a fixed size
+1.1 PASE: IVF_FLAT A centroid page is employed to store cluster information.</description>
     </item>
     
   </channel>
