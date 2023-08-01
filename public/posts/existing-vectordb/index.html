@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html><head>
+<title>Existing Vectordb</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="https://lisirrx.github.io/scss/journal.min.3f72a5fc8f5b5dd732a4b476aced0eece2156958d9d414316494ddb10593ddf7.css" integrity="sha256-P3Kl/I9bXdcypLR2rO0O7OIVaVjZ1BQxZJTdsQWT3fc=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://lisirrx.github.io/scss/dark-mode.min.f7c2efa7183435a6bd1842f91c541481c7a5137b5991629a870f24e4a516ad4b.css" integrity="sha256-98Lvpxg0Naa9GEL5HFQUgcelE3tZkWKahw8k5KUWrUs=" media="screen">
+
+
+<script src="/vendor/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Fira+Mono|Material+Icons");
+</script>
+
+
+
+
+
+
+  <script src="/js/toc.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://lisirrx.github.io/">
+    
+        <div class="nav-title">
+            Han Li
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2023 Han Li
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#0x00-interesting-fashion-vector-database-usage" onclick="onNavClick(`#0x00-interesting-fashion-vector-database-usage-nav`)" id="0x00-interesting-fashion-vector-database-usage-nav">
+									0x00 Interesting Fashion Vector Database Usage
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#voyager_1png" onclick="onNavClick(`#voyager_1png-nav`)" id="voyager_1png-nav">
+									
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#0x01-different-databases-vector-index" onclick="onNavClick(`#0x01-different-databases-vector-index-nav`)" id="0x01-different-databases-vector-index-nav">
+									0x01: Different Databases’ Vector Index
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#1-postgresql-index-structure" onclick="onNavClick(`#1-postgresql-index-structure-nav`)" id="1-postgresql-index-structure-nav">
+									1. Postgresql Index Structure
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#11-pase-ivf_flat" onclick="onNavClick(`#11-pase-ivf_flat-nav`)" id="11-pase-ivf_flat-nav">
+									1.1 PASE: IVF_FLAT
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#12-pasehnsw" onclick="onNavClick(`#12-pasehnsw-nav`)" id="12-pasehnsw-nav">
+									1.2 PASE:HNSW
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#2-apache-lucene" onclick="onNavClick(`#2-apache-lucene-nav`)" id="2-apache-lucene-nav">
+									2. Apache Lucene
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#index-files" onclick="onNavClick(`#index-files-nav`)" id="index-files-nav">
+									Index Files
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#vec-vector-data-file" onclick="onNavClick(`#vec-vector-data-file-nav`)" id="vec-vector-data-file-nav">
+									.vec (vector data) file
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#vex-vector-index" onclick="onNavClick(`#vex-vector-index-nav`)" id="vex-vector-index-nav">
+									.vex (vector index)
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#vem-vector-metadata-file" onclick="onNavClick(`#vem-vector-metadata-file-nav`)" id="vem-vector-metadata-file-nav">
+									.vem (vector metadata) file
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#add-doc" onclick="onNavClick(`#add-doc-nav`)" id="add-doc-nav">
+									Add Doc
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#3-milvus" onclick="onNavClick(`#3-milvus-nav`)" id="3-milvus-nav">
+									3. Milvus
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#4-diskann" onclick="onNavClick(`#4-diskann-nav`)" id="4-diskann-nav">
+									4. DiskANN
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#5-spannsptag" onclick="onNavClick(`#5-spannsptag-nav`)" id="5-spannsptag-nav">
+									5. SPANN/SPTAG
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#0x02-possible-design-in-kv-store" onclick="onNavClick(`#0x02-possible-design-in-kv-store-nav`)" id="0x02-possible-design-in-kv-store-nav">
+									0x02: possible design in kv-store
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#1-one-possible-design-of-ivf" onclick="onNavClick(`#1-one-possible-design-of-ivf-nav`)" id="1-one-possible-design-of-ivf-nav">
+									1. One possible design of IVF
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#2-one-possible-design-of-hnsw" onclick="onNavClick(`#2-one-possible-design-of-hnsw-nav`)" id="2-one-possible-design-of-hnsw-nav">
+									2. One possible design of HNSW
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#0x03" onclick="onNavClick(`#0x03-nav`)" id="0x03-nav">
+									0x03
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#0x00-interesting-fashion-vector-database-usage" onclick="onNavClick(`#0x00-interesting-fashion-vector-database-usage-nav`)" id="0x00-interesting-fashion-vector-database-usage-nav">
+									0x00 Interesting Fashion Vector Database Usage
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#voyager_1png" onclick="onNavClick(`#voyager_1png-nav`)" id="voyager_1png-nav">
+									
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#0x01-different-databases-vector-index" onclick="onNavClick(`#0x01-different-databases-vector-index-nav`)" id="0x01-different-databases-vector-index-nav">
+									0x01: Different Databases’ Vector Index
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#1-postgresql-index-structure" onclick="onNavClick(`#1-postgresql-index-structure-nav`)" id="1-postgresql-index-structure-nav">
+									1. Postgresql Index Structure
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#11-pase-ivf_flat" onclick="onNavClick(`#11-pase-ivf_flat-nav`)" id="11-pase-ivf_flat-nav">
+									1.1 PASE: IVF_FLAT
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#12-pasehnsw" onclick="onNavClick(`#12-pasehnsw-nav`)" id="12-pasehnsw-nav">
+									1.2 PASE:HNSW
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#2-apache-lucene" onclick="onNavClick(`#2-apache-lucene-nav`)" id="2-apache-lucene-nav">
+									2. Apache Lucene
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#index-files" onclick="onNavClick(`#index-files-nav`)" id="index-files-nav">
+									Index Files
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#vec-vector-data-file" onclick="onNavClick(`#vec-vector-data-file-nav`)" id="vec-vector-data-file-nav">
+									.vec (vector data) file
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#vex-vector-index" onclick="onNavClick(`#vex-vector-index-nav`)" id="vex-vector-index-nav">
+									.vex (vector index)
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#vem-vector-metadata-file" onclick="onNavClick(`#vem-vector-metadata-file-nav`)" id="vem-vector-metadata-file-nav">
+									.vem (vector metadata) file
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#add-doc" onclick="onNavClick(`#add-doc-nav`)" id="add-doc-nav">
+									Add Doc
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#3-milvus" onclick="onNavClick(`#3-milvus-nav`)" id="3-milvus-nav">
+									3. Milvus
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#4-diskann" onclick="onNavClick(`#4-diskann-nav`)" id="4-diskann-nav">
+									4. DiskANN
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#5-spannsptag" onclick="onNavClick(`#5-spannsptag-nav`)" id="5-spannsptag-nav">
+									5. SPANN/SPTAG
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#0x02-possible-design-in-kv-store" onclick="onNavClick(`#0x02-possible-design-in-kv-store-nav`)" id="0x02-possible-design-in-kv-store-nav">
+									0x02: possible design in kv-store
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#1-one-possible-design-of-ivf" onclick="onNavClick(`#1-one-possible-design-of-ivf-nav`)" id="1-one-possible-design-of-ivf-nav">
+									1. One possible design of IVF
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#2-one-possible-design-of-hnsw" onclick="onNavClick(`#2-one-possible-design-of-hnsw-nav`)" id="2-one-possible-design-of-hnsw-nav">
+									2. One possible design of HNSW
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#0x03" onclick="onNavClick(`#0x03-nav`)" id="0x03-nav">
+									0x03
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="https://lisirrx.github.io/">
+            Han Li
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://lisirrx.github.io/">
+        <div class="single-column-header-title">Han Li</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    Existing Vectordb
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2023-07-27 03:55
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/">[research notes]</a>
+                                &nbsp;
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="0x00-interesting-fashion-vector-database-usage">0x00 Interesting Fashion Vector Database Usage</h2>
+<ol>
+<li>[[voyager.pdf|Voyager]]:Use LLM in Minecraft that continuously explores the world</li>
+</ol>
+<h2 id="voyager_1png"><img src="voyager_1.png" alt=""></h2>
+<p><img src="voyager_2.png" alt=""></p>
+<hr>
+<ol>
+<li><img src="https://python.langchain.com/" alt="LangChain">
+<img src="langchain_steps.png" alt=""></li>
+</ol>
+<hr>
+<p>e.g. <a href="https://github.com/akshata29/chatpdf">https://github.com/akshata29/chatpdf</a></p>
+<p><img src="chatpdf.png" alt=""></p>
+<ol start="3">
+<li>Use Cases
+<ol>
+<li>Agents/Agent Simulation</li>
+<li>Chat Bots</li>
+<li>Code Understanding</li>
+<li>QA over Documents</li>
+<li>Summarization</li>
+<li>Analyzing Structured Data</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h2 id="0x01-different-databases-vector-index">0x01: Different Databases&rsquo; Vector Index</h2>
+<ol>
+<li>Postgresql: <img src="https://github.com/alipay/PASE" alt="PASE"></li>
+<li>Apache Lucene(Mongo?/ElasticSearch)</li>
+<li>Milvus: <a href="https://github.com/milvus-io/milvus">https://github.com/milvus-io/milvus</a></li>
+<li>DiskANN: <a href="https://github.com/microsoft/DiskANN">https://github.com/microsoft/DiskANN</a></li>
+<li>SPANN: <a href="https://github.com/microsoft/SPTAG">https://github.com/microsoft/SPTAG</a></li>
+</ol>
+<hr>
+<h2 id="1-postgresql-index-structure">1. Postgresql Index Structure</h2>
+<p>Every table/index of PG is stored as an array of pages with a fixed size</p>
+<p><img src="pg_page.png" alt=""></p>
+<hr>
+<p><img src="pg_index_structure.png" alt=""></p>
+<hr>
+<h3 id="11-pase-ivf_flat">1.1 PASE: IVF_FLAT</h3>
+<ul>
+<li>A centroid page is employed to store cluster information.</li>
+<li>A data page is similar to an inverted chain in a search engine that stores all vectors belonging to a certain cluster.</li>
+</ul>
+<p><img src="pg_vector_ivfflat_index.png" alt=""></p>
+<hr>
+<h3 id="12-pasehnsw">1.2 PASE:HNSW</h3>
+<ul>
+<li>A data page is used to store raw vector data.</li>
+<li>A neighbor page is employed to store edges between<br>
+adjacent nodes.</li>
+</ul>
+<p><img src="pg_vector_hnaw_index.png" alt=""></p>
+<hr>
+<h2 id="2-apache-lucene">2. Apache Lucene</h2>
+<p><img src="lucene_index.png" alt=""></p>
+<p>Read OffHeapHNSWGraph( by .e.g mmap) from File and search on it</p>
+<h2 id="index-files">Index Files</h2>
+<p>Lucene 9.5 vector format, which encodes numeric vector values and an optional associated graph connecting the documents having values. The graph is used to power HNSW search. The format consists of three files:</p>
+<h3 id="vec-vector-data-file">.vec (vector data) file</h3>
+<p>For each field:</p>
+<ul>
+<li>Vector data ordered by field, document ordinal, and vector dimension. When the vectorEncoding is BYTE, each sample is stored as a single byte. When it is FLOAT32, each sample is stored as an IEEE float in little-endian byte order.</li>
+<li>DocIds encoded by IndexedDISI.writeBitSet(DocIdSetIterator, IndexOutput, byte), note that only in sparse case</li>
+<li>OrdToDoc was encoded by org.apache.lucene.util.packed.DirectMonotonicWriter, note that only in sparse case</li>
+</ul>
+<h3 id="vex-vector-index">.vex (vector index)</h3>
+<p>Stores graphs connecting the documents for each field organized as a list of nodes&rsquo; neighbours as following:</p>
+<ul>
+<li>For each level:
+<ul>
+<li>For each node:
+<ul>
+<li>[vint] the number of neighbor nodes</li>
+<li>array[vint] the delta encoded neighbor ordinals</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>After all levels are encoded memory offsets for each node&rsquo;s neighbor nodes encoded by org.apache.lucene.util.packed.DirectMonotonicWriter are appened to the end of the file.</li>
+</ul>
+<h3 id="vem-vector-metadata-file">.vem (vector metadata) file</h3>
+<p>For each field:</p>
+<ul>
+<li>[int32] field number</li>
+<li>[int32] vector similarity function ordinal</li>
+<li>[vlong] offset to this field&rsquo;s vectors in the .vec file</li>
+<li>[vlong] length of this field&rsquo;s vectors, in bytes</li>
+<li>[vlong] offset to this field&rsquo;s index in the .vex file</li>
+<li>[vlong] length of this field&rsquo;s index data, in bytes</li>
+<li>[vint] dimension of this field&rsquo;s vectors</li>
+<li>[int] the number of documents having values for this field</li>
+<li>[int8] if equals to -1, dense – all documents have values for a field. If equals to 0, sparse – some documents missing values.</li>
+<li>DocIds were encoded by IndexedDISI.writeBitSet(DocIdSetIterator, IndexOutput, byte)</li>
+<li>OrdToDoc was encoded by org.apache.lucene.util.packed.DirectMonotonicWriter, note that only in sparse case</li>
+<li>[vint] the maximum number of connections (neigbours) that each node can have</li>
+<li>[vint] number of levels in the graph</li>
+<li>Graph nodes by level. For each level
+<ul>
+<li>[vint] the number of nodes on this level</li>
+<li>array[vint] for levels greater than 0 list of nodes on this level, stored as the level 0th delta encoded nodes&rsquo; ordinals.</li>
+</ul>
+</li>
+</ul>
+<h2 id="add-doc">Add Doc</h2>
+<ol>
+<li>add vector field and build in-memory graph</li>
+<li>flush to file when commit</li>
+<li>merge graph when merge segment ^9a98a9</li>
+</ol>
+<hr>
+<h2 id="3-milvus">3. Milvus</h2>
+<p><img src="milvus_arch.png" alt=""></p>
+<ul>
+<li>Each segment has multiple versions and a new
+version is generated whenever the data or index in that segment is changed (e.g., upon flushing, merging, or building index)</li>
+</ul>
+<blockquote>
+<p>Milvus supports efficient insertions and deletions by adopting theidea of LSM-tree [47]. Newly inserted entities are stored in memoryfirst as MemTable. Once the accumulated size reaches a threshold,or once every second, the MemTable becomes immutable and thengets flushed to disk as a new segment==</p>
+</blockquote>
+<hr>
+<h2 id="4-diskann">4. DiskANN</h2>
+<p><img src="Diskann_index.png" alt=""></p>
+<p>DiskANN Contains 2 part</p>
+<ul>
+<li>Vamana Index Algorithm</li>
+<li>Disk Index Layout</li>
+</ul>
+<h2 id="5-spannsptag">5. SPANN/SPTAG</h2>
+<p><img src="spann_index.png" alt=""></p>
+<p>SPANN/SPTAG focus on the in-memory index building, for searching in very large dataset.
+SPTAG constructs space partition trees and a relative neighborhood graph as the vector index which can speedup the nearest centroids search to sub-millisecond response time</p>
+<hr>
+<h2 id="0x02-possible-design-in-kv-store">0x02: possible design in kv-store</h2>
+<ol>
+<li>Store IVF/Neighbor Graph index in Rocksdb</li>
+<li>Implement Rocksdb Memtable using a vector index format?</li>
+</ol>
+<p>For 1:</p>
+<ol>
+<li>Random Access a position in file(lucene/DiskANN/SPANN)</li>
+<li>Access blocks from one to another(pg)</li>
+</ol>
+<p><strong>Use Prefix for item aggregation</strong></p>
+<hr>
+<h3 id="1-one-possible-design-of-ivf">1. One possible design of IVF</h3>
+<p>Suppose we have a vector encoding method</p>
+<p><strong>Use multiple pair to store an IVF list of a centroid vector</strong></p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t_centroid_[1.0,1.5]_0</td>
+<td>[[1.0,1.1],[1.0,1.2]&hellip;]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_1</td>
+<td>[[1.1,1.1],[1.1,1.2]&hellip;]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_2</td>
+<td>[[1.2,1.1],[1.2,1.2]&hellip;]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_0</td>
+<td>[[1.0,2.1],[1.0,2.2]&hellip;]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_1</td>
+<td>[[1.1,2.1],[1.1,2.2]&hellip;]</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>or</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t_centroid_[1.0,1.5]_0</td>
+<td>[1.0,1.1]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_1</td>
+<td>[1.0,1.2]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_2</td>
+<td>[1.1,1.1]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_3</td>
+<td>[1.1,1.2]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_4</td>
+<td>[1.2,1.1]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,1.5]_5</td>
+<td>[1.2,1.2]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_0</td>
+<td>[1.0,2.1]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_1</td>
+<td>[1.0,2.2]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_2</td>
+<td>[1.1,2.1]</td>
+</tr>
+<tr>
+<td>t_centroid_[1.0,2.5]_3</td>
+<td>[1.1,2.2]</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="2-one-possible-design-of-hnsw">2. One possible design of HNSW</h3>
+<p>Use KV to represent graph</p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>value(distance, neighbor vec)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>t_vec_lv0_[1.0,1.5]</td>
+<td>[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&hellip;]</td>
+</tr>
+<tr>
+<td>t_vec_lv0_[1.1,3.5]</td>
+<td>[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&hellip;]</td>
+</tr>
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
+</tr>
+<tr>
+<td>t_vec_lv1_[1.2,4.5]</td>
+<td>[(0.1, [1.0,1.1]),(0.2,[1.0,1.2])&hellip;]</td>
+</tr>
+</tbody>
+</table>
+<p>or expand to multiple lines like IVF</p>
+<hr>
+<p>For 2: ?</p>
+<ol>
+<li>索引重建</li>
+<li>SST 合并、SST Builder</li>
+<li>merge operator</li>
+<li>向量索引的内存部分不是memtable 而是SST Meta 信息 super index</li>
+<li>memtable可以就是部分数据，比如构建一个小的索引</li>
+<li>PlainTable</li>
+</ol>
+<h2 id="0x03">0x03</h2>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2023-07-27</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://lisirrx.github.io/posts/inc-index/">
+			Next<br>Inc Index
+                </a>
+                
+                
+                
+                <a class="older-posts">
+			Previous<br>No older posts.
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2023 Han Li
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script>
+    </body>
+</html>
