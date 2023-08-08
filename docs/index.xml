@@ -5,66 +5,67 @@
     <description>Recent content on Han Li</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 01 Aug 2023 02:44:20 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Aug 2023 13:27:10 +0800</lastBuildDate>
     
         <atom:link href="https://vecrocks.lisirrx.me/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
-        <title>Vecrocks Design</title>
-        <link>https://vecrocks.lisirrx.me/posts/vectorcks-design/</link>
-        <pubDate>Tue, 01 Aug 2023 02:44:20 +0800</pubDate>
+        <title>Vecrocks design</title>
+        <link>https://vecrocks.lisirrx.me/posts/vecrocks-design/</link>
+        <pubDate>Sun, 06 Aug 2023 13:27:10 +0800</pubDate>
         
-        <guid>https://vecrocks.lisirrx.me/posts/vectorcks-design/</guid>
-        <description>Han Li https://vecrocks.lisirrx.me/posts/vectorcks-design/ -&lt;h2 id=&#34;1-overview&#34;&gt;1. Overview&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;../images/index/image-5.png&#34; alt=&#34;Alt text&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;11-algorithm&#34;&gt;1.1 Algorithm&lt;/h2&gt;
-&lt;p&gt;Use same FreshVamana algorithm from &lt;a href=&#34;https://vecrocks.lisirrx.me/posts/fresh-diskann/&#34;&gt;FreshDiskANN&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;2-operations&#34;&gt;2. Operations&lt;/h2&gt;
-&lt;h3 id=&#34;21-insert--delete-procedure&#34;&gt;2.1 Insert &amp;amp; Delete Procedure&lt;/h3&gt;
+        <guid>https://vecrocks.lisirrx.me/posts/vecrocks-design/</guid>
+        <description>Han Li https://vecrocks.lisirrx.me/posts/vecrocks-design/ -&lt;p&gt;&lt;img src=&#34;design_vecrocks_0808.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-disk-graph-如何和-kv-graph-合并&#34;&gt;1. disk graph 如何和 kv graph 合并&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;fresh_insert.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;FreshDiskANN的写入过程中，会对图的结构做以下变更&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;insert into mutable FreshVamana index memtable&lt;/li&gt;
-&lt;li&gt;convert to immutable when reach the threshold.&lt;/li&gt;
-&lt;li&gt;flush to L0 file, which is same structure as immutable index.&lt;/li&gt;
-&lt;li&gt;StreamingMerge L0 file, delete list to Ln(n &amp;gt;= 1) file.&lt;/li&gt;
+&lt;li&gt;新写入的点创建它的出边&lt;/li&gt;
+&lt;li&gt;Nout(p)的出边会被prune&lt;/li&gt;
+&lt;li&gt;Delete流程会更新Nout(d)的上游和下游&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;22-search&#34;&gt;2.2 Search&lt;/h3&gt;
-&lt;ol start=&#34;0&#34;&gt;
-&lt;li&gt;consturct a KNN search queue&lt;/li&gt;
-&lt;li&gt;search from memtable&lt;/li&gt;
-&lt;li&gt;load l0 to disk and search&lt;/li&gt;
-&lt;li&gt;search from all sst file using graph based search&lt;/li&gt;
+&lt;p&gt;对于这些变更的点（以及Nout(p)），我们需要一直缓存在内存中，直到这个disk graph写入kv graph完成&lt;/p&gt;
+&lt;p&gt;会有这样几个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;缓存的点是否会很多？预估是变更点的常数倍数，也许需要实验&lt;/li&gt;
+&lt;li&gt;如果每个disk graph有自己的cache，是否意味着这个步骤不能并发？&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;3-data-structure&#34;&gt;3. Data Structure&lt;/h2&gt;
-&lt;h3 id=&#34;31-in-memory&#34;&gt;3.1 In Memory&lt;/h3&gt;
-&lt;p&gt;raw data:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|id|vector|
-|id|vector|
-|id|vector|
-...
-|id|vector|
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;index:
-graph relation which can be &lt;code&gt;std::vector&amp;lt;std::vector&amp;lt;uint32_t&amp;gt;&amp;gt; _final_graph;&lt;/code&gt;&lt;/p&gt;
-&lt;h4 id=&#34;311-raw-data--index&#34;&gt;3.1.1 raw data &amp;amp; index&lt;/h4&gt;
-&lt;h4 id=&#34;312-deletelistfilter&#34;&gt;3.1.2 DeleteListFilter&lt;/h4&gt;
-&lt;h3 id=&#34;32-on-disk&#34;&gt;3.2 On Disk&lt;/h3&gt;
-&lt;p&gt;index:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|src1_dst1|is_valid/id info|
-|src1_dst2|is_valid/id info|
-|src1_dst3|is_valid/id info|
-...
-|src2_dst1|is_valid/id info|
-...
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;raw data:&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;|id|vector|
-|id|vector|
-|id|vector|
-...
-|id|vector|
-...
-&lt;/code&gt;&lt;/pre&gt;- https://vecrocks.lisirrx.me/posts/vectorcks-design/ - </description>
+&lt;h2 id=&#34;2-disk-graph如何查询&#34;&gt;2. disk graph如何查询&lt;/h2&gt;
+&lt;p&gt;花费k倍的内存，缓存disk graph，mmap到内存中执行图查询?&lt;/p&gt;
+&lt;h2 id=&#34;3-是否存在一种图分割合并的方式暂时不考虑&#34;&gt;3. 是否存在一种图分割&amp;amp;合并的方式（暂时不考虑）&lt;/h2&gt;
+&lt;p&gt;DISKANN是进行了kmeans之后，对于每个点都加入2-closest cluster中，合并时简单地连接所有的边。但是这个步骤仅限全量构造图的流程中。&lt;/p&gt;
+&lt;p&gt;如果我们能找到一种streaming的聚类方式，也许可以对图进行这样的分割。&lt;/p&gt;
+&lt;h2 id=&#34;4-diskann代码&#34;&gt;4. DiskANN代码&lt;/h2&gt;
+&lt;p&gt;FreshDiskANN 实现在一个很老的(2021.6)的，实验性的分支上，虽然能build(有些依赖比如MKL库要改)，但是是否能用于我们的baseline？&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;diskann_issue_355.png&#34; alt=&#34;&#34;&gt;
+&lt;img src=&#34;diskann_issue_405.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/microsoft/DiskANN/issues/405#issuecomment-1656370311&#34;&gt;https://github.com/microsoft/DiskANN/issues/405#issuecomment-1656370311&lt;/a&gt;
+&lt;a href=&#34;https://github.com/microsoft/DiskANN/issues/355#issuecomment-1568944560&#34;&gt;https://github.com/microsoft/DiskANN/issues/355#issuecomment-1568944560&lt;/a&gt;
+&lt;a href=&#34;https://github.com/microsoft/DiskANN/pull/11&#34;&gt;https://github.com/microsoft/DiskANN/pull/11&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;5-plan&#34;&gt;5. plan&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;在RockDB上设计vector insert&amp;amp;search的框架
+&lt;ol&gt;
+&lt;li&gt;确定要改的代码范围
+&lt;ol&gt;
+&lt;li&gt;memtable结构变化&lt;/li&gt;
+&lt;li&gt;增加一层disk graph&lt;/li&gt;
+&lt;li&gt;disk graph merge into kv graph&lt;/li&gt;
+&lt;li&gt;in-memory的额外结构，topK queue、deletelist等&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;先实现成robust knn？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;实现FreshDiskANN的Vamana索引
+&lt;ol&gt;
+&lt;li&gt;使用diskann repo的代码？如上所述是一个outdated状态&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+- https://vecrocks.lisirrx.me/posts/vecrocks-design/ - </description>
         </item>
     
     
