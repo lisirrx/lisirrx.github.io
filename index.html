@@ -259,12 +259,12 @@
     <p class="meta entry-meta"><span>Research Software Engineer</span><span class="entry-when">September 2024–present</span></p>
     <p class="submission-plan">Planned submission: <strong>OSDI 2027</strong></p>
 
-    <p>Exploring whether controlling message arrival order and timing can improve existing concurrency control without replacing it. Cross-shard order inversions cause aborts, while conflicting requests and control messages can also cause aborts without inversions.</p>
+    <p>This project investigates common causes of transaction aborts and how to address them across existing concurrency-control protocols, with an emphasis on easy adoption across different database systems.</p>
 
     <ul>
-      <li>Developing proactive timestamp ordering and dependency-guided conflict pacing at hotspots; studying which keys to manage and how long to buffer messages so that avoided retries outweigh added waiting.</li>
-      <li>Prototyping and evaluating the approach in CockroachDB and Spanner/NCC research implementations using Go, C++ and gRPC.</li>
-      <li>Using transaction/RPC instrumentation, per-key abort attribution and controlled experiments to evaluate portability, tail latency and median-latency/throughput tradeoffs.</li>
+      <li><strong>Understanding aborts.</strong> We characterize contention-related aborts across locking, optimistic, and timestamp-based protocols, distinguishing cross-shard order inversions from conflicts involving requests, control messages, and transaction semantics. These conflicts can trigger aborts even when transactions arrive in a consistent order.</li>
+      <li><strong>A horizontal design approach.</strong> We propose improving existing concurrency-control mechanisms through proactive message ordering and conflict pacing, rather than replacing them with a new protocol. This approach targets opportunities shared across different mechanisms while reducing the engineering effort required for adoption.</li>
+      <li><strong>RPC-layer implementation.</strong> We implement the approach through gRPC interceptors that identify ordering hotspots, reorder transaction messages, and regulate their delivery according to message dependencies. The underlying concurrency-control mechanism remains responsible for correctness.</li>
     </ul>
 
   </article>
@@ -275,12 +275,12 @@
     <p class="meta entry-meta"><span>Research Software Engineer</span><span class="entry-when">April 2026–present</span></p>
     <p class="submission-plan">Planned submission: <strong>OSDI 2027</strong></p>
 
-    <p>Investigating why small write conflicts can trigger a full job retry after expensive computation and object-store I/O. The research hypothesis is that repair work should scale with conflicting data rather than the entire transaction.</p>
+    <p>In lakehouse systems, a commit conflict can invalidate an entire write statement after expensive computation and object-store I/O have already completed. Retrying the statement repeats scans, computation, and S3 requests, even when only a small part of its work is affected.</p>
 
     <ul>
-      <li>Designing early intent-based ordering and incremental repair: execute uncontested work concurrently, defer dependent work, and reuse valid outputs while checking changes against committed Iceberg snapshots.</li>
-      <li>Prototyping coordinator and Spark/Iceberg connector changes to retain unaffected outputs and repair affected data.</li>
-      <li>Building concurrent SQL workloads, per-statement S3 tracing, serial replay and fault-injection tools to evaluate correctness, wasted work and coordination costs.</li>
+      <li><strong>Measuring wasted work.</strong> We build concurrent SQL workloads and statement-level instrumentation to attribute computation, object-store requests, and transferred bytes to aborted attempts, and investigate which conflicts can be resolved without full re-execution.</li>
+      <li><strong>Ordering and incremental repair.</strong> We explore coordinating writers through early read/write intents, preserving unaffected outputs, and deferring work that depends on earlier conflicting writes. The goal is to make repair proportional to the affected data while retaining concurrency.</li>
+      <li><strong>Spark/Iceberg prototype.</strong> We are implementing an advisory coordination service and connector changes for incremental repair at commit time, with validation against committed Iceberg snapshots. The current prototype focuses on a restricted class of MERGE statements; broader SQL coverage and end-to-end evaluation remain in progress.</li>
     </ul>
 
   </article>
